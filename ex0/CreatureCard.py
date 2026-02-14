@@ -9,10 +9,15 @@ class CreatureCard(Card):
         self.health = health
 
     def play(self, game_state: dict):
-        status = {}
-        status = game_state
-        status["effect"] = "Creature summoned to battlefield"
-        return status
+        if game_state["player_mana"] >= 5:
+            play_res = {'card_played': self.name,
+                        'mana_used': 3,
+                        'effect': "Creature summoned to battlefield"
+                        }
+            game_state["player_mana"] = game_state["player_mana"] - 3
+            return play_res
+        else:
+            raise ValueError("is_playable: False")
 
     def attack_target(self, target: str) -> dict:
         attack = {}

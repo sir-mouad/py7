@@ -10,9 +10,12 @@ except ValueError as e:
 print("\nPlaying Fire Dragon with 6 mana available:")
 available_mana = 6
 print(f"playable: {card.is_playable(available_mana)}")
-game_status = {"card_played": card.name, "mana_used": 5}
-res = card.play(game_status)
-print(f"play result: {game_status}")
+game_status = {"player_mana": 6}
+try:
+    res = card.play(game_status)
+    print(f"play result: {res}")
+except ValueError as e:
+    print(e)
 print("\nFire Dragon attacks Goblin Warrior:")
 res = card.attack_target("Goblin Warrior")
 print("Attack result:", res)
