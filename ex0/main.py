@@ -1,31 +1,28 @@
 from ex0.CreatureCard import CreatureCard
 
-
-def main() -> None:
-    print("\n=== DataDeck Card Foundation ===\n")
-    print("esting Abstract Base Class Design:\n")
-    card = CreatureCard("Fire Dragon", 5, "Legendary", 7, 5)
-    try:
-        print(card.get_card_info())
-    except ValueError as e:
-        print(e)
-    print("\nPlaying Fire Dragon with 6 mana available:")
-    available_mana = 6
-    print(f"playable: {card.is_playable(available_mana)}")
-    game_status = {"player_mana": 6}
-    try:
-        res = card.play(game_status)
-        print(f"play result: {res}")
-    except ValueError as e:
-        print(e)
-    print("\nFire Dragon attacks Goblin Warrior:")
-    res = card.attack_target("Goblin Warrior")
-    print("Attack result:", res)
-    print("\nTesting insufficient mana (3 available):")
-    available_mana = 3
-    print(f"playable: {card.is_playable(available_mana)}")
-    print("\nAbstract pattern successfully demonstrated!")
-
-
-if __name__ == "__main__":
-    main()
+print("\n=== DataDeck Card Foundation ===\n")
+print("Testing Abstract Base Class Design:\n")
+print("CreatureCard Info:")
+fire_dragon = CreatureCard(
+    name="Fire Dragon",
+    cost=5,
+    rarity="Legendary",
+    attack=7,
+    health=5)
+print(fire_dragon.get_card_info())
+mana = 6
+print(f"Playing {fire_dragon.name} with {mana} mana available:")
+print(f"Playable: {fire_dragon.is_playable(mana)}")
+print(f"Play result: {fire_dragon.play({})}")
+print("\nFire Dragon attacks Goblin Warrior:")
+goblin_warrior = CreatureCard(
+    name="Goblin Warrior",
+    cost=5,
+    rarity="Legendary",
+    attack=7,
+    health=5)
+print(f"Attack result: {fire_dragon.attack_target(goblin_warrior)}")
+mana = 3
+print(f"Testing insufficient mana ({mana} available)")
+print(f"Playable: {fire_dragon.is_playable(mana)}")
+print("\nAbstract pattern successfully demonstrated!")

@@ -2,30 +2,47 @@ from ex0.Card import Card
 
 
 class CreatureCard(Card):
-    def __init__(self, name: str, cost: int,
-                 rarity: str, attack: int, health: int):
-        super().__init__(name, cost, rarity)
-        self.attack = attack
-        self.health = health
-
-    def play(self, game_state: dict):
-        if game_state["player_mana"] >= 5:
-            play_res = {'card_played': self.name,
-                        'mana_used': 3,
-                        'effect': "Creature summoned to battlefield"
-                        }
-            game_state["player_mana"] = game_state["player_mana"] - 3
-            return play_res
+    def __init__(self, name: str, cost: int, rarity: str,
+                 attack: int, health: int) -> None:
+        super()  .__init__(name, cost, rarity)
+        if (self.validate_attack(attack)):
+            self.attack = attack
         else:
-            raise ValueError("is_playable: False")
-
-    def attack_target(self, target: str) -> dict:
-        attack = {}
-        attack["attacker"] = self.name
-        attack["target"] = target
-        attack["damage_dealt"] = self.attack
-        if self.health - self.attack < 0:
-            attack["combat_resolved"] = True
+            raise ValueError("Attack value too small (must be > 0)")
+        if (self.validate_health(health)):
+            self .health = health
         else:
-            attack["combat_resolved"] = False
-        return attack
+            raise ValueError("Health value too small (must be > 0)")
+        return None
+
+    def validate_health(self, health: int) -> bool:
+        if (health > 0):
+            return True
+        return False
+
+    def validate_attack(self, attack: int) -> bool:
+        if (attack > 0):
+            return True
+        return False
+
+    def get_card_info(self):
+        infos = super().get_card_info()
+        infos["type"] = self .type
+        infos["attack"] = self .attack
+        infos["health"] = self .health
+        return infos
+
+    def play(self, game_state: dict) -> dict:
+        return {
+            "card_played": self .name,
+            "mana_used": self .cost,
+            "effect": "Creature summoned to battlefield"
+        }
+
+    def attack_target(self, target: "CreatureCard") -> dict:
+        return {
+            "attacker": self .name,
+            "target": target .name,
+            "damade_dealt": self .attack,
+            "combat_resolved": True
+        }

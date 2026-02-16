@@ -1,19 +1,16 @@
-from .EliteCard import EliteCard
-
-
-def main() -> None:
-    print("\n=== DataDeck Ability System ===\n")
-    print("EliteCard capabilities:")
-    EliteCard.Elite_Card()
-    print("\nPlaying Arcane Warrior (Elite Card):\n")
-    print("Combat phase:")
-    card = EliteCard("Arcane Warrior", 5, "Uncommon", 5, "melee", 3, 10)
-    print("Attack result:", card.attack("Enemy"))
-    print("Defense result:", card.defend(5))
-    print("Spell cast:", card.cast_spell("Fireball", ['Enemy1', 'Enemy2']))
-    print("Mana channel:", card.channel_mana(10))
-    print("Multiple interface implementation successful!")
-
-
-if __name__ == "__main__":
-    main()
+from ex2 import EliteCard
+print("\n=== DataDeck Ability System ===\n")
+print("EliteCard capabilities:")
+print("- Card: ['play', 'get_card_info', 'is_playable']")
+print("- Combatable: ['attack', 'defend', 'get_combat_stats']")
+print(" Magical: ['cast_spell', 'channel_mana', 'get_magic_stats']")
+print("\nPlaying Arcane Warrior (Elite Card):\n")
+arcane_warrior = EliteCard("Arcane Warrior", 4, "Legendary", 5, "melee")
+print("Combat phase:")
+print("Attack result:", arcane_warrior.attack("Enemy"))
+print("Defense result:", arcane_warrior.defend(2))
+print("\nMagic phase:")
+print(f"Spell cast: {arcane_warrior.cast_spell(
+    "Fireball", ["Enemy1", "Enemy2"])}")
+print(f"Mana channel: {arcane_warrior.channel_mana(3)}")
+print("\nMultiple interface implementation successful!")

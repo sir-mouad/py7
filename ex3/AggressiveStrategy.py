@@ -3,10 +3,10 @@ from ex3.GameStrategy import GameStrategy
 
 class AggressiveStrategy(GameStrategy):
     def execute_turn(self, hand: list, battlefield: list) -> dict:
-        pass
+        return hand
 
     def get_strategy_name(self) -> str:
-        pass
+        return "Aggressive strategy"
 
-    def prioritize_targets(self, available_targets: list) -> list:
-        pass
+    def prioritze_targets(self, available_targets: list) -> list:
+        return available_targets.sort()

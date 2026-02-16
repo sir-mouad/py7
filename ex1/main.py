@@ -1,42 +1,18 @@
 from ex0.CreatureCard import CreatureCard
-from ex1.SpellCard import SpellCard
-from ex1.ArtifactCard import ArtifactCard
-from ex1.Deck import Deck
+from ex1 import ArtifactCard, Deck, SpellCard
 
-
-def main() -> None:
-    print("\n=== DataDeck Deck Builder ===\n")
-    print("Building deck with different card types...")
-    cards = Deck()
-    Creature = CreatureCard("Fire Dragon", 5, "Legendary", 7, 5)
-    Spell = SpellCard("Lightning Bolt", 3, "Common", "damage")
-    Artifact = ArtifactCard("Healing Potion", 2, "Common",
-                            5, "Permanent: +1 mana per turn")
-    try:
-        cards.add_card(Creature)
-        cards.add_card(Spell)
-        cards.add_card(Artifact)
-    except ValueError as e:
-        print(e)
-    print("Deck stats:", cards.get_deck_stats())
-    print("\nDrawing and playing cards:\n")
-    print("Drew: Lightning Bolt (Spell)")
-    try:
-        print("Play result", Spell.play({"player_mana": 5}))
-    except ValueError as e:
-        print(e)
-    print("\nDrew: Mana Crystal (Artifact)")
-    try:
-        print("Play result", Artifact.play({"player_mana": 6}))
-    except ValueError as e:
-        print(e)
-    print("\nDrew: Fire Dragon (Creature)")
-    try:
-        print("Play result", Creature.play({"player_mana": 6}))
-    except ValueError as e:
-        print(e)
-    print("\nPolymorphism in action: Same interface, different card behaviors")
-
-
-if __name__ == "__main__":
-    main()
+print("\n=== DataDeck Deck Builder ===\n")
+print("Building deck with different card types...")
+spell = SpellCard("Lightning Bolt", 3,
+                  "rare", "Deal 3 damage to target")
+artifact = ArtifactCard("Mana crystal", 2, "rare",
+                        4, "Permanent: +1 mana per turn")
+creature = CreatureCard("Fire Dragon", 5, "Legendary", 3, 5)
+deck = Deck()
+deck.add_card(spell)
+deck.add_card(artifact)
+deck.add_card(creature)
+print(f"Deck stats: {deck.get_deck_stats()}")
+print("\nDrawing and playing cards:\n")
+deck.draw_card()
+print("Polymorphism in action: Same interface, different card behaviors!")
